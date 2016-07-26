@@ -15,10 +15,12 @@ These non-blocking socket interfaces are still used today and are the base of an
 
 You implement the event-loop by calling select or poll, which will return when any event has been fired (readable, writable) on any of the involved sockets. You then handle this event with your event-handler by either calling recv to receive the data or send to send data using the writable socket:
 
+```c
 // the event-loop
 while (poll(...)) {
 // the event-handler
 }
+```
 
 ## Winsock (1991)
 Pretty much a clone of Berkeley sockets but for Windows systems.
@@ -26,10 +28,12 @@ Pretty much a clone of Berkeley sockets but for Windows systems.
 ## Windows 3.1 (1992)
 Even though Windows is by far newer than X from 1984, the introduction of Windows 3.1 marks a huge impact on async programming in C. Every GUI program ever written for Windows is async. That's how all GUI programs are made. They work pretty much identical to the Berkeley sockets, you implement an event-loop with GetMessage (analogous to poll/epoll):
 
+```c
 // the event-loop
 while (GetMessage(...)) {
 // the event-handler
 }
+```
 
 Events in GUI applications could be WM_PAINT, WM_CLICK, and the like to notify the application of clicks, redraws, etc.
 
