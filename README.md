@@ -40,6 +40,18 @@ Events in GUI applications could be WM_PAINT, WM_CLICK, and the like to notify t
 ## Visual Basic 6.0 (1998)
 A completely async scripting-like environment in BASIC with TCP sockets and GUI events based on Windows and Winsock. You could write complete graphical UIs with async click handlers, async network handlers, etc. A complete "scripting environment" far before anything Node.js ever existed.
 
+You had your usual list of events like:
+
+* Close
+* Connect
+* ConnectionRequest
+* DataArrival
+* Error
+* SendComplete
+* SendProgress
+
+I've personally written countless async servers in VB6 multiple years before anything like Node.js ever existed.
+
 ## kqueue (2000)
 With FreeBSD 4.1 we got the first high performance event-system via kqueue. Just like epoll in Linux this feature allows servers to scale to millions of connections with no linear search of ready sockets.
 
