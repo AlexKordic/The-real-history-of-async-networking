@@ -2,7 +2,7 @@
 
 ## The misconception (2016)
 
-I constantly get the impression todays employers don't really know what they are looking for or what they really need. I see how hip and modern start-ups working with everyday non-mindblowing server solutions search for people with experience in Node.js and nothing else.
+I constantly get the impression today's employers don't really know what they are looking for or what they really need. I see how hip and modern start-ups working with everyday non-mindblowing server solutions search for people with experience in Node.js and nothing else.
 
 They somehow believe a C programmer with decades of experience cannot possibly understand this completely new async networking stack. Because, we all know Node.js and JavaScript are completely new technologies never before seen. A C programmer cannot possibly wrap their head around async code since C is not an async language like JavaScript. You cannot possibly grasp the concept of Node.js and JavaScript if you do not have 20 years of experience with *only* it.
 
@@ -11,7 +11,7 @@ It's not like a C programmer can go into the Node.js universe and write somethin
 ## Berkeley sockets (1983)
 Our async networking trip begins with the legendary BSD nonblocking sockets from the early 80s. We had nonblocking sockets and accompanying event-loop mechanisms like select and poll before we even had the internet.
 
-These non-blocking socket interfaces are still used today and are the base of any async netwokring in any modern networking application. Virtually unchanged, except for the evolution of event mechanisms like epoll and kqueue.
+These non-blocking socket interfaces are still used today and are the base of any async networking in any modern networking application. Virtually unchanged, except for the evolution of event mechanisms like epoll and kqueue.
 
 You implement the event-loop by calling select or poll, which will return when any event has been fired (readable, writable) on any of the involved sockets. You then handle this event with your event-handler by either calling recv to receive the data or send to send data using the writable socket:
 
@@ -47,13 +47,13 @@ With FreeBSD 4.1 we got the first high performance event-system via kqueue. Just
 With the release of Linux 2.5.44 we got an upgrade to the event-system via the epoll syscalls. epoll is what is being used today and is what allows any networking server to scale to millions of connections without having to perform a linear seach like poll does.
 
 ## libevent (2002)
-A cross-platform async event-loop written in C that wraps epoll and kqueue in an easy to use interface. Grandfather of libuv
+A cross-platform async event-loop written in C that wraps epoll and kqueue in an easy to use interface. Grandfather of libuv.
 
 ## NGINX (2004)
 Async modern webserver, load-balancer and proxy written in C. Very popular still to this date.
 
 ## ASIO (2005)
-Boost ASIO is one of the most widely known asyncronous and modern C++ networking libraries to date. Work initially started 2003 and the library was committed into Boost 2005.
+Boost ASIO is one of the most widely known asynchronous and modern C++ networking libraries to date. Work initially started 2003 and the library was committed into Boost 2005.
 
 ## Node.js (2009)
 "Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient."
@@ -64,4 +64,4 @@ Node.js is a runtime written in C++ (V8) and C (libuv, OpenSSL, zlib). You write
 
 ## A note on "async" languages
 
-So how come C, the language from the 70s is able to implement this kind of async software stack? Basically, JavaScript is not async at all. Async is not a property of the language but rather a property of the libraries which the language makes use of. You can believe JavaScript to be async, but according to computer science JavaScript is rather *less* async than C given that JavaScript has no treading support. An imperative computer program cannot possibly execute anything exept for what is described at the PC register, unless you have threads. What happens if you perform some kind of computation in your Node.js app? Simple, the app will freeze because there is only one event-loop and only one thread of execution. Good luck imlpementing anything async in JavaScript without the use of threads.
+So how come C, the language from the 70s is able to implement this kind of async software stack? Basically, JavaScript is not async at all. Async is not a property of the language but rather a property of the libraries which the language makes use of. You can believe JavaScript to be async, but according to computer science JavaScript is rather *less* async than C given that JavaScript has no threading support. An imperative computer program cannot possibly execute anything exept for what is described at the PC register, unless you have threads. What happens if you perform some kind of computation in your Node.js app? Simple, the app will freeze because there is only one event-loop and only one thread of execution. Good luck implementing anything async in JavaScript without the use of threads.
