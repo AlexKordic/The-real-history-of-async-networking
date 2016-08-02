@@ -3,7 +3,7 @@ I constantly get the impression today's employers don't really know what they ar
 
 They somehow believe a C programmer with decades of experience cannot possibly understand this completely new async networking stack. Because, we all know Node.js and JavaScript are completely new technologies never before seen. A C programmer cannot possibly wrap their head around async code since C is not an async language like JavaScript. You cannot possibly grasp the concept of Node.js and JavaScript if you do not have 20 years of experience with *only* it.
 
-It's not like a C programmer can go into the Node.js universe and write something better than the best available. That would be completely impossible, C programmers know nothing about Node.js.
+It's not like a C programmer can go into the Node.js universe and write something [better than the best available](https://github.com/uWebSockets/uWebSockets). That would be completely impossible, C programmers know nothing about Node.js.
 
 ## Berkeley sockets (1983)
 Our async networking trip begins with the legendary BSD non-blocking sockets from the early 80s. By marking a socket non-blocking you could handle multiple connections from a single user space thread. If your intention was to manage 100 connections you would perform the syscall `select` to block your thread until at least one of the involved non-blocking sockets had triggered an event to be handeled. Identical in structure to how modern event-loops work, you implement the loop something like this:
