@@ -55,7 +55,7 @@ The problem of having a linear search over all involved sockets each triggered e
 With Windows NT 3.5, Microsoft had implemented I/O Completion Ports, IOCP. Instead of looping over the sockets, the call to `GetQueuedCompletionStatus` would block and return with a pointer to the socket that fired the event. This would make the looping unnecessary and allow appliactions to scale to a much higher number of connections using only a single user space thread.
 
 ## Visual Basic 6.0 (1998)
-Again, not related to networking history but rather as a point of reference. Visual Basic 6 was an entire development environment based on having a single thread handle a bunch of different events. The events could be networking events from the built-in WinSock support, or GUI events such as when the user clicked a graphical button. It was an entire, complete event-driven environment based on async programming.
+Again, not related to networking history but rather as a point of reference. Visual Basic 6 was an entire development environment based on having a single thread handle a bunch of different events. These could be networking events from the built-in WinSock support, or GUI events such as when the user clicked a graphical button. It was an entire, complete event-driven environment based on async programming.
 
 In my personal opinion, Visual Basic 6 was the true grandfather of today's Node.js. Nothing that Node.js brings today was not already thought about, solved, and delivered back in the late 90s. We had an easy-to-use single-threaded BASIC language modelled after the English language. Anyone could program async apps, even a child, like me.
 
@@ -71,10 +71,10 @@ With the release of Linux 2.5.44 we now had truly scalable networking I/O cross-
 A cross-platform async event-loop written in C that wraps epoll, kqueue and IOCP in an easy to use interface. Grandfather of libuv.
 
 ## NGINX (2004)
-Async modern webserver, load-balancer and proxy written in C. Very popular still to this date.
+It is important to know that NGINX, a modern and very popular high-performance webserver, load-balancer and proxy was written many years before Node.js and that Ryan Dahl himself designed Node.js with NGINX as an example of how it should be done.
 
 ## ASIO (2005)
-Boost ASIO is one of the most widely known asynchronous and modern C++ networking libraries to date. Work initially started 2003 and the library was committed into Boost 2005.
+Boost ASIO is one of the most widely known asynchronous and modern C++ networking libraries to date. Work initially started 2003 and the library was committed into Boost 2005. Now used by many and looks to be included into standard C++17.
 
 ## Node.js (2009)
 "Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient."
