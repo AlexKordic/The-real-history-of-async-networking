@@ -1,7 +1,4 @@
 # The real history of async networking
-
-## The misconception (2016)
-
 I constantly get the impression today's employers don't really know what they are looking for or what they really need. I see how hip and modern start-ups working with everyday non-mindblowing server solutions search for people with experience in Node.js and nothing else.
 
 They somehow believe a C programmer with decades of experience cannot possibly understand this completely new async networking stack. Because, we all know Node.js and JavaScript are completely new technologies never before seen. A C programmer cannot possibly wrap their head around async code since C is not an async language like JavaScript. You cannot possibly grasp the concept of Node.js and JavaScript if you do not have 20 years of experience with *only* it.
@@ -53,7 +50,9 @@ while (GetMessage(...)) {
 Instead of `select`, a GUI program calls `GetMessage`. This pattern of design where one single thread blocks until an event is available and the handles this event is called an event-loop. All event-loops, no matter what language, work like this. Some kind of blocking syscall in a loop. That's it, the event-loop pattern.
 
 ## IOCP (1995)
-With Windows NT 3.5 and forward, Microsoft had implemented the epoll / kqueue equivalent which allowed one to efficiently wait for events on multiple sockets.
+The problem of having a linear search over all involved sockets each triggered event started to really harm performance as the number of connnections increased. Surpassing 1000 connections with `poll` is not without a fair share of looping overhead.
+
+With Windows NT 3.5, Microsoft had implemented I/O Completion Ports, IOCP. Instead of looping over the sockets, the call to `GetQueuedCompletionStatus` would block and return with a pointer to the socket that fired the event. This would make the looping unneccesary and allow appliactions to scale to a much higher number of connections using only a single user space thread.
 
 ## Visual Basic 6.0 (1998)
 A completely async scripting-like environment in BASIC with TCP sockets and GUI events based on Windows and Winsock. You could write complete graphical UIs with async click handlers, async network handlers, etc. A complete "scripting environment" far before anything Node.js ever existed.
