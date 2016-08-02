@@ -9,24 +9,39 @@ They somehow believe a C programmer with decades of experience cannot possibly u
 It's not like a C programmer can go into the Node.js universe and write something better than the best available. That would be completely impossible, C programmers know nothing about Node.js.
 
 ## Berkeley sockets (1983)
-Our async networking trip begins with the legendary BSD nonblocking sockets from the early 80s. We had nonblocking sockets and accompanying event-loop mechanisms like select and poll before we even had the internet.
-
-These non-blocking socket interfaces are still used today and are the base of any async networking in any modern networking application. Virtually unchanged, except for the evolution of event mechanisms like epoll and kqueue.
-
-You implement the event-loop by calling select or poll, which will return when any event has been fired (readable, writable) on any of the involved sockets. You then handle this event with your event-handler by either calling recv to receive the data or send to send data using the writable socket:
+Our async networking trip begins with the legendary BSD non-blocking sockets from the early 80s. By marking a socket non-blocking you could handle multiple connections from a single user space thread. If your intention was to manage 100 connections you would perform the syscall `select` to block your thread until at least one of the involved non-blocking sockets had triggered an event to be handeled. Identical in structure to how modern event-loops work, you implement the loop something like this:
 
 ```c
-// the event-loop
-while (poll(...)) {
-// the event-handler
+// the event-loop blocks until select returns
+while (select(...)) {
+// the event-handler for the correct socket executes
 }
 ```
 
-## Winsock (1991)
-Pretty much a clone of Berkeley sockets but for Windows systems.
+The biggest difference between modern event-loops and loops based on `select` is the linear performance overhead that comes with not knowing which socket actually triggered the event. You see, `select` doesn't tell you *which* socket fired, but only the fact that *some* socket fired an event. The single thread managing all connections would have to loop over all the involved sockets and check their flag values to determine if they were the cause of this trigger:
+
+```c
+// the event-loop blocks until select returns
+while (select(...)) {
+// iterate over all sockets
+for (...) {
+  // is this the socket?
+  if (...) {
+    // the event-handler for the correct socket executes
+    break;
+  }
+}
+}
+```
+
+## poll (1986)
+With the `select` syscall solving the problem of handling many connections per user space thread, the `poll` syscall iterated on the interface and had a couple of different properties. One big difference is how `select` destroys the input data while `poll` does not. There are more details but in a nutshell, they are irrelevant to this history.
+
+## WinSock (1991)
+The WinSock API was designed with heavy influence from the BSD non-blocking sockets from the Unix world. The BSD interface is still very relevant in the Unix world today but has been (optionally) partly replaced with a different interface in the Windows world.
 
 ## Windows 3.1 (1992)
-Even though Windows is by far newer than X from 1984, the introduction of Windows 3.1 marks a huge impact on async programming in C. Every GUI program ever written for Windows is async. That's how all GUI programs are made. They work pretty much identical to the Berkeley sockets, you implement an event-loop with GetMessage (analogous to poll/epoll):
+As a point of reference, not really related to networking but more of a design pattern acknowledge. The Win16 API from Windows 3.1 had C programmers build async GUI programs pretty much the exact same way as they would build an async networking app. By having one user space thread call `GetMessage` in a loop, the thread would block until an event (here called a message) was available:
 
 ```c
 // the event-loop
@@ -35,9 +50,9 @@ while (GetMessage(...)) {
 }
 ```
 
-Events in GUI applications could be WM_PAINT, WM_CLICK, and the like to notify the application of clicks, redraws, etc.
+Instead of `select`, a GUI program calls `GetMessage`. This pattern of design where one single thread blocks until an event is available and the handles this event is called an event-loop. All event-loops, no matter what language, work like this. Some kind of blocking syscall in a loop. That's it, the event-loop pattern.
 
-## I/O Completion Ports (1995)
+## IOCP (1995)
 With Windows NT 3.5 and forward, Microsoft had implemented the epoll / kqueue equivalent which allowed one to efficiently wait for events on multiple sockets.
 
 ## Visual Basic 6.0 (1998)
