@@ -71,17 +71,20 @@ With the release of Linux 2.5.44 we now had truly scalable networking I/O cross-
 A cross-platform async event-loop written in C that wraps epoll, kqueue and IOCP in an easy to use interface. Grandfather of libuv.
 
 ## NGINX (2004)
-It is important to know that NGINX, a modern and very popular high-performance webserver, load-balancer and proxy was written many years before Node.js and that Ryan Dahl himself designed Node.js with NGINX as an example of how it should be done.
+It is important to know that NGINX, a modern and very popular high-performance webserver, load-balancer and proxy was written many years before Node.js and that Ryan Dahl himself designed Node.js with NGINX as an example of how it should be done. NGINX is written in C.
 
 ## ASIO (2005)
 Boost ASIO is one of the most widely known asynchronous and modern C++ networking libraries to date. Work initially started 2003 and the library was committed into Boost 2005. Now used by many and looks to be included into standard C++17.
 
+## V8 (2008)
+With the initial release of Google Chrome, we got a major boost in JavaScript performance and security. What's more important, we got its engine, V8, open sourced.
+
 ## Node.js (2009)
-"Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient."
+We know from looking at the history that people were clearly aware of the event-loop pattern and its async implications long before Node.js was ever conceived. Somewhere between the initial steep hill of marketing Node.js and the time point where it all expoloded we seem to have lost the history though...
 
-Node.js is nothing new and nothing revolutionary. From the perspective of a PHP programmer it might be something new but from the perspective of an experienced C programmer this piece of software is nothing more than a simplification of common (ancient) async techniques wrapped up in JavaScript for non-experienced programmers to toy with. Any experienced programmer can easily understand this software stack.
+We are being taught Node.js moves the industry, that it brings never-before-seen performances and it's all being explained by this "new" async design pattern that *clearly* did not exist before. We are being taught V8 generates "machine code" that runs almost as fast as C and we are being taught C programmers are non-productive and non-aware of this whole async design.
 
-Node.js is a runtime written in C++ (V8) and C (libuv, OpenSSL, zlib). You write server logic in JavaScript, bound to underlying C code. Everything you do (tcp, udp, files, events) is directly connected to C code. Any net.Socket is bound via V8 to an underlying uv_tcp_t responsible for handling any async events, any non-blocking event stems from the Linux kernel via epoll (or whatever system you use). Anything you do in JavaScript is really just acting as a director, controlling the underlying C functionalities which in turn implement the real async functionality.
+Node.js is *nothing* new and nothing revolutionary. From the perspective of a PHP programmer it might be something new but from the perspective of an experienced C programmer this piece of software is nothing more than a simplification of common (now ancient) async techniques, wrapped up in JavaScript for non-experienced programmers to toy with. Any *experienced* programmer can easily understand this software stack and should not be seen as an old relic with useless experience. JavaScript, just like any other language, still operates at the universal rules of computer science. Nothing escapes reality, no matter how hard you want to believe it.
 
 ## A note on "async" languages
 
