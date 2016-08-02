@@ -59,14 +59,16 @@ Again, not related to networking history but rather as a point of reference. Vis
 
 In my personal opinion, Visual Basic 6 was the true grandfather of today's Node.js. Nothing that Node.js brings today was not already thought about, solved, and delivered back in the late 90s. We had an easy-to-use single-threaded BASIC language modelled after the English language. Anyone could program async apps, even a child, like me.
 
+I remember doing a lot of VB6 up until 2004. I had created everything from simple file-transfer services we used in school to share akwardly low-res pirated videos and games, to fully working 2d MMORPGs. VB6 :')
+
 ## kqueue (2000)
-With FreeBSD 4.1 we got a high performance event-system via kqueue. Just like epoll in Linux this feature allows servers to scale to millions of connections with no linear search of ready sockets.
+FreeBSD 4.1 implemented the first version of `kqueue`, the Unix response to IOCP. In a nutshell `kqueue` has the same advantages and solves the big problem with `poll`.
 
 ## epoll (2002)
-With the release of Linux 2.5.44 we got an upgrade to the event-system via the epoll syscalls. epoll is what is being used today and is what allows any networking server to scale to millions of connections without having to perform a linear seach like poll does.
+With the release of Linux 2.5.44 we now had truly scalable networking I/O cross-platform.
 
 ## libevent (2002)
-A cross-platform async event-loop written in C that wraps epoll and kqueue in an easy to use interface. Grandfather of libuv.
+A cross-platform async event-loop written in C that wraps epoll, kqueue and IOCP in an easy to use interface. Grandfather of libuv.
 
 ## NGINX (2004)
 Async modern webserver, load-balancer and proxy written in C. Very popular still to this date.
