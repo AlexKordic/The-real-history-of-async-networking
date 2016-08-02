@@ -56,7 +56,7 @@ You had your usual list of events like:
 I've personally written countless async servers in VB6 multiple years before anything like Node.js ever existed.
 
 ## kqueue (2000)
-With FreeBSD 4.1 we got the first high performance event-system via kqueue. Just like epoll in Linux this feature allows servers to scale to millions of connections with no linear search of ready sockets.
+With FreeBSD 4.1 we got a high performance event-system via kqueue. Just like epoll in Linux this feature allows servers to scale to millions of connections with no linear search of ready sockets.
 
 ## epoll (2002)
 With the release of Linux 2.5.44 we got an upgrade to the event-system via the epoll syscalls. epoll is what is being used today and is what allows any networking server to scale to millions of connections without having to perform a linear seach like poll does.
