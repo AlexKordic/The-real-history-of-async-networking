@@ -38,7 +38,7 @@ With the `select` syscall solving the problem of handling many connections per u
 The WinSock API was designed with heavy influence from the BSD non-blocking sockets from the Unix world. The BSD interface is still very relevant in the Unix world today but has been (optionally) partly replaced with a different interface in the Windows world.
 
 ## Windows 3.1 (1992)
-As a point of reference, not really related to networking but more of a design pattern acknowledge. The Win16 API from Windows 3.1 had C programmers build async GUI programs pretty much the exact same way as they would build an async networking app. By having one user space thread call `GetMessage` in a loop, the thread would block until an event (here called a message) was available:
+As a point of reference, not really related to networking but more of a design pattern acknowledgement. The Win16 API from Windows 3.1 had C programmers build async GUI programs pretty much the exact same way as they would build an async networking app. By having one user space thread call `GetMessage` in a loop, the thread would block until an event (here called a message) was available:
 
 ```c
 // the event-loop
@@ -52,22 +52,12 @@ Instead of `select`, a GUI program calls `GetMessage`. This pattern of design wh
 ## IOCP (1995)
 The problem of having a linear search over all involved sockets each triggered event started to really harm performance as the number of connnections increased. Surpassing 1000 connections with `poll` is not without a fair share of looping overhead.
 
-With Windows NT 3.5, Microsoft had implemented I/O Completion Ports, IOCP. Instead of looping over the sockets, the call to `GetQueuedCompletionStatus` would block and return with a pointer to the socket that fired the event. This would make the looping unneccesary and allow appliactions to scale to a much higher number of connections using only a single user space thread.
+With Windows NT 3.5, Microsoft had implemented I/O Completion Ports, IOCP. Instead of looping over the sockets, the call to `GetQueuedCompletionStatus` would block and return with a pointer to the socket that fired the event. This would make the looping unnecessary and allow appliactions to scale to a much higher number of connections using only a single user space thread.
 
 ## Visual Basic 6.0 (1998)
-A completely async scripting-like environment in BASIC with TCP sockets and GUI events based on Windows and Winsock. You could write complete graphical UIs with async click handlers, async network handlers, etc. A complete "scripting environment" far before anything Node.js ever existed.
+Again, not related to networking history but rather as a point of reference. Visual Basic 6 was an entire development environment based on having a single thread handle a bunch of different events. The events could be networking events from the built-in WinSock support, or GUI events such as when the user clicked a graphical button. It was an entire, complete event-driven environment based on async programming.
 
-You had your usual list of events like:
-
-* Close
-* Connect
-* ConnectionRequest
-* DataArrival
-* Error
-* SendComplete
-* SendProgress
-
-I've personally written countless async servers in VB6 multiple years before anything like Node.js ever existed.
+In my personal opinion, Visual Basic 6 was the true grandfather of today's Node.js. Nothing that Node.js brings today was not already thought about, solved, and delivered back in the late 90s. We had an easy-to-use single-threaded BASIC language modelled after the English language. Anyone could program async apps, even a child, like me.
 
 ## kqueue (2000)
 With FreeBSD 4.1 we got a high performance event-system via kqueue. Just like epoll in Linux this feature allows servers to scale to millions of connections with no linear search of ready sockets.
