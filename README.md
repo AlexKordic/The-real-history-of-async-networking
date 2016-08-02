@@ -37,6 +37,9 @@ while (GetMessage(...)) {
 
 Events in GUI applications could be WM_PAINT, WM_CLICK, and the like to notify the application of clicks, redraws, etc.
 
+## I/O Completion Ports (1995)
+With Windows NT 3.5 and forward, Microsoft had implemented the epoll / kqueue equivalent which allowed one to efficiently wait for events on multiple sockets.
+
 ## Visual Basic 6.0 (1998)
 A completely async scripting-like environment in BASIC with TCP sockets and GUI events based on Windows and Winsock. You could write complete graphical UIs with async click handlers, async network handlers, etc. A complete "scripting environment" far before anything Node.js ever existed.
 
