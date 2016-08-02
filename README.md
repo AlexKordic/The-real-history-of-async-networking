@@ -77,7 +77,7 @@ It is important to know that NGINX, a modern and very popular high-performance w
 Boost ASIO is one of the most widely known asynchronous and modern C++ networking libraries to date. Work initially started 2003 and the library was committed into Boost 2005. Now used by many and looks to be included into standard C++17.
 
 ## V8 (2008)
-With the initial release of Google Chrome, we got a major boost in JavaScript performance and security. What's more important, we got its engine, V8, open sourced.
+With the initial release of Google Chrome, we got a major boost in JavaScript performance and security. What's more important, we got its engine, V8 open sourced.
 
 ## Node.js (2009)
 We know from looking at the history that people were clearly aware of the event-loop pattern and its async implications long before Node.js was ever conceived. Somewhere between the initial steep hill of marketing Node.js and the time point where it all expoloded we seem to have lost the history though...
