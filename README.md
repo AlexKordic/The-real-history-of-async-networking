@@ -6,7 +6,7 @@ They somehow believe a C programmer with decades of experience cannot possibly u
 It's not like a C programmer can go into the Node.js universe and write something [better than the best available](https://github.com/uWebSockets/uWebSockets). That would be completely impossible, C programmers know nothing about Node.js.
 
 ## Berkeley sockets (1983)
-Our async networking trip begins with the legendary BSD non-blocking sockets from the early 80s. By marking a socket non-blocking you could handle multiple connections from a single user space thread. If your intention was to manage 100 connections you would perform the syscall `select` to block your thread until at least one of the involved non-blocking sockets had triggered an event to be handeled. Identical in structure to how modern event-loops work, you implement the loop something like this:
+Our async networking trip begins with the legendary BSD non-blocking sockets from the early 80s. By marking a socket non-blocking you could handle multiple connections from a single user space thread. If your intention was to manage 100 connections you would perform the syscall `select` to block your thread until at least one of the involved non-blocking sockets had triggered an event to be handled. Identical in structure to how modern event-loops work, you implement the loop something like this:
 
 ```c
 // the event-loop blocks until select returns
@@ -38,7 +38,7 @@ With the `select` syscall solving the problem of handling many connections per u
 The WinSock API was designed with heavy influence from the BSD non-blocking sockets from the Unix world. The BSD interface is still very relevant in the Unix world today but has been (optionally) partly replaced with a different interface in the Windows world.
 
 ## Windows 3.1 (1992)
-As a point of reference, not really related to networking but more of a design pattern acknowledgement. The Win16 API from Windows 3.1 had C programmers build async GUI programs pretty much the exact same way as they would build an async networking app. By having one user space thread call `GetMessage` in a loop, the thread would block until an event (here called a message) was available:
+As a point of reference, not really related to networking but more of a design pattern acknowledgment. The Win16 API from Windows 3.1 had C programmers build async GUI programs pretty much the exact same way as they would build an async networking app. By having one user space thread call `GetMessage` in a loop, the thread would block until an event (here called a message) was available:
 
 ```c
 // the event-loop
@@ -50,16 +50,16 @@ while (GetMessage(...)) {
 Instead of `select`, a GUI program calls `GetMessage`. This pattern of design where one single thread blocks until an event is available and the handles this event is called an event-loop. All event-loops, no matter what language, work like this. Some kind of blocking syscall in a loop. That's it, the event-loop pattern.
 
 ## IOCP (1995)
-The problem of having a linear search over all involved sockets each triggered event started to really harm performance as the number of connnections increased. Surpassing 1000 connections with `poll` is not without a fair share of looping overhead.
+The problem of having a linear search over all involved sockets each triggered event started to really harm performance as the number of connections increased. Surpassing 1000 connections with `poll` is not without a fair share of looping overhead.
 
-With Windows NT 3.5, Microsoft had implemented I/O Completion Ports, IOCP. Instead of looping over the sockets, the call to `GetQueuedCompletionStatus` would block and return with a pointer to the socket that fired the event. This would make the looping unnecessary and allow appliactions to scale to a much higher number of connections using only a single user space thread.
+With Windows NT 3.5, Microsoft had implemented I/O Completion Ports, IOCP. Instead of looping over the sockets, the call to `GetQueuedCompletionStatus` would block and return with a pointer to the socket that fired the event. This would make the looping unnecessary and allow applications to scale to a much higher number of connections using only a single user space thread.
 
 ## Visual Basic 6.0 (1998)
 Again, not related to networking history but rather as a point of reference. Visual Basic 6 was an entire development environment based on having a single thread handle a bunch of different events. These could be networking events from the built-in WinSock support, or GUI events such as when the user clicked a graphical button. It was an entire, complete event-driven environment based on async programming.
 
-In my personal opinion, Visual Basic 6 was the true grandfather of today's Node.js. Nothing that Node.js brings today was not already thought about, solved, and delivered back in the late 90s. We had an easy-to-use single-threaded BASIC language modelled after the English language. Anyone could program async apps, even a child, like me.
+In my personal opinion, Visual Basic 6 was the true grandfather of today's Node.js. Nothing that Node.js brings today was not already thought about, solved, and delivered back in the late 90s. We had an easy-to-use single-threaded BASIC language modeled after the English language. Anyone could program async apps, even a child, like me.
 
-I remember doing a lot of VB6 up until 2004. I had created everything from simple file-transfer services we used in school to share akwardly low-res pirated videos and games, to fully working 2d MMORPGs. VB6 :')
+I remember doing a lot of VB6 up until 2004. I had created everything from simple file-transfer services we used in school to share awkwardly low-res pirated videos and games, to fully working 2d MMORPGs. VB6 :')
 
 ## kqueue (2000)
 FreeBSD 4.1 implemented the first version of `kqueue`, the Unix response to IOCP. In a nutshell `kqueue` has the same advantages and solves the big problem with `poll`.
@@ -80,14 +80,14 @@ Boost ASIO is one of the most widely known asynchronous and modern C++ networkin
 With the initial release of Google Chrome, we got a major boost in JavaScript performance and security. What's more important, we got its engine, V8 open sourced.
 
 ## Node.js (2009)
-We know from looking at the history that people were clearly aware of the event-loop pattern and its async implications long before Node.js was ever conceived. Somewhere between the initial steep hill of marketing Node.js and the time point where it all expoloded we seem to have lost the history though...
+We know from looking at the history that people were clearly aware of the event-loop pattern and its async implications long before Node.js was ever conceived. Somewhere between the initial steep hill of marketing Node.js and the time point where it all exploded we seem to have lost the history though...
 
 We are being taught Node.js moves the industry, that it brings never-before-seen performances and it's all being explained by this "new" async design pattern that *clearly* did not exist before. We are being taught V8 generates "machine code" that runs almost as fast as C and we are being taught C programmers are non-productive and non-aware of this whole async design.
 
 Node.js is nothing new and *nothing* revolutionary. From the perspective of a PHP programmer it might be something new, but from the perspective of an experienced C programmer this piece of software is nothing more than a simplification of common (now ancient) async techniques wrapped up in JavaScript for non-experienced programmers to toy with. Any *experienced* programmer can easily understand this software stack and should not be seen as an old relic with useless experience. JavaScript, just like any other language, still operates at the universal rules of computer science. Nothing escapes reality, no matter how hard you want to believe it.
 
 # The brainwashing procedure (2014)
-Ever since Node.js has gotten itself blown up in terms of trendiness most everyone seems to have completely forgotten about the history. I see people working as high-paid software developers claim async networking to be something new and never before seen. These are Silicon Valley hot-shots making ridiculously false claims about the histroy while showing absolutely no knowledge about what really happens under the surface, completely incapable of applying the most basic computer science to their claims.
+Ever since Node.js has gotten itself blown up in terms of trendiness most everyone seems to have completely forgotten about the history. I see people working as high-paid software developers claim async networking to be something new and never before seen. These are Silicon Valley hot-shots making ridiculously false claims about the history while showing absolutely no knowledge about what really happens under the surface, completely incapable of applying the most basic computer science to their claims.
 
 People cannot believe me when I tell them I wrote async servers back in the early 00s, even though async networking has been the very foundation of any Unix system since the early 80s. Node.js is marketed with such enormous focus on "high performance" and "event-driven" making other solutions which take these design decisions for granted seem irrelevant and ancient. People are starting to lose grasp of what is reality and what is just a marketing campaign gone explosive.
 
